@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kejutan Ulang Tahun Ibu! 🎂</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+        }
+
+        /* ===== EFEK POLAROID ===== */
+        .polaroid-container {
+            background: white;
+            padding: 12px;
+            padding-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateX(2deg) rotateY(-3deg);
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid-container:hover {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            background: #f5f5f5;
+        }
+
+        .polaroid-text {
+            margin-top: 10px;
+            font-family: 'Marker Felt', cursive, sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            text-align: center;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 15px;
+            }
+        }
+
+        .gallery-item {
+            width: 100%;
+            aspect-ratio: 3/4;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-photo {
+            width: 280px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .main-photo {
+                width: 200px;
+            }
+        }
+
+        .floating-emoji {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            margin: 0 5px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-200 via-rose-100 to-pink-300 min-h-screen relative">
+
+    <!-- Container Utama -->
+    <div class="min-h-screen flex flex-col">
+        
+        <!-- Header Pesan -->
+        <div class="pt-6 pb-4 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg mb-2">
+                Ada pesan rahasia untuk Ibu... <span class="floating-emoji">💌</span>
+            </h2>
+        </div>
+
+        <!-- Tombol Buka -->
+        <div class="flex justify-center px-4 pb-6">
+            <button onclick="bukaKejutan()" class="bg-gradient-to-r from-rose-400 to-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-rose-400/50 hover:scale-105 transition-all duration-300 active:scale-95 text-lg">
+                Buka Sekarang 🎁
+            </button>
+        </div>
+
+        <!-- Konten yang Muncul Setelah Klik -->
+        <div id="content" class="hidden flex-1 flex flex-col overflow-y-auto">
+            
+            <!-- Foto Utama Ibu dengan Polaroid -->
+            <div class="flex justify-center pt-4 pb-6 px-4">
+                <div class="main-photo">
+                    <div class="polaroid-container">
+                        <img src="foto-ibu.jpg" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/300x300/ffb6c1/ffffff?text=Foto+Ibu'" 
+                             alt="Foto Ibu" 
+                             class="polaroid-img">
+                        <div class="polaroid-text">For you, Mom ✨</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pesan Ucapan -->
+            <div class="text-center px-4 pb-6">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow-lg mb-4">
+                    Selamat Ulang Tahun, Ibu! 🎉
+                </h1>
+                <div class="bg-white/90 p-6 rounded-2xl shadow-lg max-w-md mx-auto">
+                    <p class="text-gray-700 leading-relaxed text-base sm:text-lg">
+                        Terima kasih atas segala cinta, kasih sayang, dan kesabaran Ibu selama ini. Semoga Ibu selalu diberi kesehatan, kebahagiaan, dan umur yang panjang. Aku sayang Ibu! ❤️
+                    </p>
+                </div>
+            </div>
+
+            <!-- Galeri Foto -->
+            <div class="flex-1 px-4 pb-10">
+                <h3 class="text-2xl font-bold text-white drop-shadow-lg text-center mb-4">Kenangan Indah Bersama Ibu 📸</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="fotoibu2.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+1'" alt="Kenangan 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu3.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+2'" alt="Kenangan 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu4.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+3'" alt="Kenangan 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu5.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+4'" alt="Kenangan 4">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu6.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+5'" alt="Kenangan 5">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu7.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+6'" alt="Kenangan 6">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu8.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+7'" alt="Kenangan 7">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu9.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+8'" alt="Kenangan 8">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fotoibu10.jpg" onerror="this.src='https://placehold.co/200x250/ffb6c1/ffffff?text=Foto+9'" alt="Kenangan 9">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bg-music" src="lagu-jamrud.mp3" preload="auto"></audio>
+
+
+    <script>
+        function bukaKejutan() {
+            // Tampilkan konten galeri
+            let content = document.getElementById('content');
+            content.classList.remove('hidden');
+            
+            // Scroll ke atas
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Mainkan Lagu
+            let audio = document.getElementById('bg-music');
+            if (audio) {
+                audio.play().catch(e => console.log("Gagal memutar audio:", e));
+            }
+
+            // Mulai Kembang Api
+            mulaiKembangApi();
+        }
+
+        function mulaiKembangApi() {
+            // Ledakan utama
+            confetti({
+                particleCount: 150,
+                spread: 90,
+                origin: { y: 0.6 },
+                zIndex: 100,
+                colors: ['#ff0000', '#ff69b4', '#ff1493', '#ffd700', '#ffffff']
+            });
+
+            // Ledakan berkelanjutan 15 detik
+            var duration = 15 * 1000; 
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                    colors: ['#ff0000', '#ff69b4', '#ff1493', '#ffd700', '#ffffff']
+                }));
+                
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                    colors: ['#ff0000', '#ff69b4', '#ff1493', '#ffd700', '#ffffff']
+                }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
